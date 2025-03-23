@@ -7,8 +7,9 @@ namespace QuestionsAPI.Models
 {
     public class Answers
     {
-        public int Id { get; set; }
-        public List<string>? AnswersValues { get; set;} = new List<string>();
+        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid QuestionId { get; set; }
+        public List<string>? Selection { get; set;} = new List<string>();
         public int? Rating  { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace QuestionsAPI.Controllers
     [ApiController]
     public class QuestionController : ControllerBase
     {
-        [HttpPut("{id:int}")]
+        [HttpPut("{id:guid}")]
         public IActionResult CreateOrUpdateQuestion(Guid id, [FromBody] Questions question)
         {
             if (question == null || string.IsNullOrEmpty(question.Title))
@@ -60,7 +60,7 @@ namespace QuestionsAPI.Controllers
             }
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("{id:guid}")]
         public IActionResult GetQuestion(Guid id)
         {
             var question = Repository.GetById(id);
@@ -77,18 +77,45 @@ namespace QuestionsAPI.Controllers
             return Ok(Repository.GetAll());
         }
 
-        // [HttpPost("{id:int}")]
-        // public IActionResult SubmitAnswer( questionId, [FromBody] Answers answer)
-        // {
-        //     var question = Repository.GetById(questionId);
+        [HttpPost("{id:guid}")]
+        public IActionResult SubmitAnswer(Guid questionId, [FromBody] Answers answer)
+        {
+            var question = Repository.GetById(questionId);
             
-        //     if (question == null)
-        //     {
-        //         return BadRequest("test"); 
-        //     }
+            if (question == null)
+            {
+                return BadRequest("test"); 
+            }
 
-        //     return Ok("Answer submitted");
-        // }
+            switch (question.Type)
+            {
+                case QuestionType.FiveStarRating:
+                if(answer.Rating == null || answer.Rating < question.MinRating || answer.Rating > question.MaxRating)
+                {
+                    return BadRequest("Invalid rating");
+                }
+                break;
+
+                case QuestionType.MultipleOption:
+                if(answer.Selection.Count < 1 ||answer.Selection.All(selectedOption => question.Options.Contains(selectedOption)))
+                {
+                    return BadRequest("Invalid selection");
+                }
+                break;
+
+                case QuestionType.SingleOption:
+                if(answer.Selection.Count != 1 || question.Options.Contains(answer.Selection[0]))
+                {
+                    return BadRequest("Invalid selection");
+                }
+                break;
+
+                default:
+                    return BadRequest("Invalid question type");
+            }
+
+            return Ok("Answer submitted");
+        }
     }
 }
 
