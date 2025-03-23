@@ -100,14 +100,14 @@ namespace QuestionsAPI.Controllers
                     break;
 
                 case QuestionType.MultipleOption:
-                    if (answer.Selection.Count < 1 || answer.Selection.All(selectedOption => question.Options.Contains(selectedOption)))
+                    if (answer.Selection.Count < 1 || !answer.Selection.All(selectedOption => question.Options.Contains(selectedOption)))
                     {
                         return BadRequest("Invalid selection");
                     }
                     break;
 
                 case QuestionType.SingleOption:
-                    if (answer.Selection.Count != 1 || question.Options.Contains(answer.Selection[0]))
+                    if (answer.Selection.Count != 1 || !question.Options.Contains(answer.Selection[0]))
                     {
                         return BadRequest("Invalid selection");
                     }
