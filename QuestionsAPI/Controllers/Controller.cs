@@ -26,6 +26,20 @@ namespace QuestionsAPI.Controllers
                     return BadRequest("Invalid ratings range");
                 }
                 break;
+
+                case QuestionType.MultipleOption:
+                if(question.Options.Count < 2)
+                {
+                    return BadRequest("Must have at least 2 options");
+                }
+                break;
+
+                case QuestionType.SingleOption:
+                if(question.Options.Count < 2)
+                {
+                    return BadRequest("Must have at least 2 options");
+                }
+                break;
             }
 
             var existingQuestion = Repository.GetById(id);
