@@ -9,5 +9,6 @@ namespace QuestionsAPI.Models
     {
         public Guid Id { get; set; }
         public List<string> AnswersValues { get; set;} = new List<string>();
+        public int? Rating  { get; set; }
     }
 }

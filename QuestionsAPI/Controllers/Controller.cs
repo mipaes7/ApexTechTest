@@ -40,6 +40,9 @@ namespace QuestionsAPI.Controllers
                     return BadRequest("Must have at least 2 options");
                 }
                 break;
+
+                default:
+                    return BadRequest("Invalid question type");
             }
 
             var existingQuestion = Repository.GetById(id);
@@ -73,12 +76,39 @@ namespace QuestionsAPI.Controllers
         {
             return Ok(Repository.GetAll());
         }
+
+        [HttpPost("{id:int}")]
+        public IActionResult SubmitAnswer(int questionId, [FromBody] Answers answer)
+        {
+            var question = Repository.GetById(questionId);
+            
+            if (question == null)
+            {
+                return NotFound();
+            }
+
+            return Ok("Answer submitted");
+        }
     }
 }
 
 // {
 //   "title": "title",
-//   "Type": "FiveStarRating",
+//   "Type": 0,
+//   "options": ["option", "option"],
+//   "minRating": 0,
+//   "maxRating": 5
+// }
+// {
+//   "title": "title",
+//   "Type": 1,
+//   "options": ["option", "option"],
+//   "minRating": 0,
+//   "maxRating": 5
+// }
+// {
+//   "title": "title",
+//   "Type": 2,
 //   "options": ["option", "option"],
 //   "minRating": 0,
 //   "maxRating": 5
