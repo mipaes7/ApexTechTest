@@ -11,7 +11,7 @@ namespace QuestionsAPI.Controllers
     public class QuestionController : ControllerBase
     {
         [HttpPut("{id:int}")]
-        public IActionResult CreateOrUpdateQuestion(int id, [FromBody] Questions question)
+        public IActionResult CreateOrUpdateQuestion(Guid id, [FromBody] Questions question)
         {
             if (question == null || string.IsNullOrEmpty(question.Title))
             {
@@ -61,7 +61,7 @@ namespace QuestionsAPI.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public IActionResult GetQuestion(int id)
+        public IActionResult GetQuestion(Guid id)
         {
             var question = Repository.GetById(id);
             if (question == null)
@@ -77,39 +77,70 @@ namespace QuestionsAPI.Controllers
             return Ok(Repository.GetAll());
         }
 
-        [HttpPost("{id:int}")]
-        public IActionResult SubmitAnswer(int questionId, [FromBody] Answers answer)
-        {
-            var question = Repository.GetById(questionId);
+        // [HttpPost("{id:int}")]
+        // public IActionResult SubmitAnswer( questionId, [FromBody] Answers answer)
+        // {
+        //     var question = Repository.GetById(questionId);
             
-            if (question == null)
-            {
-                return NotFound();
-            }
+        //     if (question == null)
+        //     {
+        //         return BadRequest("test"); 
+        //     }
 
-            return Ok("Answer submitted");
-        }
+        //     return Ok("Answer submitted");
+        // }
     }
 }
 
+//*REQUEST POST 
 // {
-//   "title": "title",
+//   "title": "fiveStarQuestionStandard",
 //   "Type": 0,
-//   "options": ["option", "option"],
-//   "minRating": 0,
-//   "maxRating": 5
+//   "minRating": 1,
+//   "maxRating": 10
 // }
+//*RESPONSE
 // {
-//   "title": "title",
+//     "id": 7,
+//     "title": "fiveStarQuestionStandard",
+//     "type": 0,
+//     "options": [],
+//     "minRating": 1,
+//     "maxRating": 10
+// }
+//*REQUEST POST
+// {
+//   "title": "multipleOptionStandard",
 //   "Type": 1,
-//   "options": ["option", "option"],
-//   "minRating": 0,
-//   "maxRating": 5
+//   "options": ["option1", "option2"]
 // }
+//*RESPONSE
 // {
-//   "title": "title",
+//     "id": 8,
+//     "title": "multipleOptionStandard",
+//     "type": 1,
+//     "options": [
+//         "option1",
+//         "option2"
+//     ],
+//     "minRating": 1,
+//     "maxRating": 5
+// }
+//*REQUEST POST
+// {
+//   "title": "singleOptionStandard",
 //   "Type": 2,
-//   "options": ["option", "option"],
-//   "minRating": 0,
-//   "maxRating": 5
+//   "options": ["option1", "option2"]
+// }
+//*RESPONSE
+// {
+//     "id": 9,
+//     "title": "singleOptionStandard",
+//     "type": 2,
+//     "options": [
+//         "option1",
+//         "option2"
+//     ],
+//     "minRating": 1,
+//     "maxRating": 5
 // }

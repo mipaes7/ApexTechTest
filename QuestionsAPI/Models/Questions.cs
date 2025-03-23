@@ -8,7 +8,7 @@ namespace QuestionsAPI.Models
 {
     public class Questions
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
         public string Title { get; set; } = string.Empty;
         public QuestionType Type { get; set; }
         public IList<string>? Options { get; set; } = new List<string>();

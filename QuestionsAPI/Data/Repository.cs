@@ -9,10 +9,11 @@ namespace QuestionsAPI.Data
     public static class Repository
     {
         private static readonly List<Questions> questions = new List<Questions>();
+        private static readonly List<Answers> answers = new List<Answers>();
 
         public static List<Questions> GetAll() => questions;
 
-        public static Questions GetById(int id) => questions.Find(q => q.Id == id);
+        public static Questions GetById(Guid id) => questions.Find(q => q.Id == id);
 
         public static void Add(Questions question)
         {
@@ -27,6 +28,11 @@ namespace QuestionsAPI.Data
                 questions.Remove(existingQuestion);
                 questions.Add(updatedQuestion);
             }
+        }
+
+        public static void AddAnswer(Answers answer)
+        {
+            answers.Add(answer);
         }
     }
 }
