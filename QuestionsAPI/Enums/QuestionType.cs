@@ -2,9 +2,9 @@ namespace QuestionsAPI.Enums
 {
     public enum QuestionType
     {
-        FiveStarRating,
-        MultipleOption,
-        SingleOption
+        FiveStarRating = 0,
+        MultipleOption = 1,
+        SingleOption = 2
     }
 
 }

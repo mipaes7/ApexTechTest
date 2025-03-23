@@ -31,3 +31,4 @@ C:\Users\migue\Desktop\pruebaApex\QuestionsAPI\obj\Debug\net8.0\refint\Questions
 C:\Users\migue\Desktop\pruebaApex\QuestionsAPI\obj\Debug\net8.0\QuestionsAPI.pdb
 C:\Users\migue\Desktop\pruebaApex\QuestionsAPI\obj\Debug\net8.0\QuestionsAPI.genruntimeconfig.cache
 C:\Users\migue\Desktop\pruebaApex\QuestionsAPI\obj\Debug\net8.0\ref\QuestionsAPI.dll
+C:\Users\migue\Desktop\pruebaApex\QuestionsAPI\obj\Debug\net8.0\QuestionsAPI.sourcelink.json

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using QuestionsAPI.Data;
 using QuestionsAPI.Models;
+using QuestionsAPI.Enums;
 using System;
 
 namespace QuestionsAPI.Controllers
@@ -15,6 +16,16 @@ namespace QuestionsAPI.Controllers
             if (question == null || string.IsNullOrEmpty(question.Title))
             {
                 return BadRequest("Invalid question data.");
+            }
+
+            switch (question.Type)
+            {
+                case QuestionType.FiveStarRating:
+                if(question.MinRating < 1 || question.MaxRating > 10 || question.MinRating >= question.MaxRating)
+                {
+                    return BadRequest("Invalid ratings range");
+                }
+                break;
             }
 
             var existingQuestion = Repository.GetById(id);
@@ -50,3 +61,11 @@ namespace QuestionsAPI.Controllers
         }
     }
 }
+
+// {
+//   "title": "title",
+//   "Type": "FiveStarRating",
+//   "options": ["option", "option"],
+//   "minRating": 0,
+//   "maxRating": 5
+// }
