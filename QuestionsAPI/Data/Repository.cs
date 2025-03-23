@@ -34,5 +34,10 @@ namespace QuestionsAPI.Data
         {
             answers.Add(answer);
         }
+
+        public static List<Answers> GetAnswersByQuestionId(Guid questionId)
+        {
+            return answers.Where(a => a.QuestionId == questionId).ToList();
+        }
     }
 }
